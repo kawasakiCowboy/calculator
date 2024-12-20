@@ -29,6 +29,7 @@ const buttonEqual = document.querySelector("#equal");
 const buttonPlus = document.querySelector("#plus");
 const buttonMinus= document.querySelector("#minus");
 const buttonDivision = document.querySelector("#division");
+const buttonMultiplication = document.querySelector("#multiplication"); 
 const buttonClear = document.querySelector("#clear");
 const buttonBackspace = document.querySelector("#backspace");
 let screenValue = document.querySelector("#screen");
@@ -37,6 +38,7 @@ let currentValue = "";
 let firstOperand;
 let secondOperand;
 let operator;
+let result;
 
 
 // LISTENERS ON OPERANDS
@@ -169,10 +171,63 @@ buttonEqual.addEventListener("click", () => {
 })
 
 buttonPlus.addEventListener("click", () => {
-    firstOperand = Number(currentValue);
-    currentValue = "";
-    showCurrenValue();
-    operator = "+";
+    if (!operator) {
+        firstOperand = Number(currentValue);
+        currentValue = "";
+        showCurrenValue();
+        operator = "+";
+    } else if (currentValue != "" && firstOperand != undefined) {
+        eval();
+        operator = "+";
+        firstOperand = result;
+    } else {
+        operator = "+";
+        }
+})
+
+buttonMinus.addEventListener("click", () => {
+    if (!operator) {
+        firstOperand = Number(currentValue);
+        currentValue = "";
+        showCurrenValue();
+        operator = "-";
+    } else if (currentValue != "" && firstOperand != undefined) {
+        eval();
+        operator = "-";
+        firstOperand = result;
+    } else {
+        operator = "-";
+        }
+})
+
+buttonDivision.addEventListener("click", () => {
+    if (!operator) {
+        firstOperand = Number(currentValue);
+        currentValue = "";
+        showCurrenValue();
+        operator = "/";
+    } else if (currentValue != "" && firstOperand != undefined) {
+        eval();
+        operator = "/";
+        firstOperand = result;
+    } else {
+        operator = "/";
+        }
+})
+
+buttonMultiplication.addEventListener("click", () => {
+    if (!operator) {
+        firstOperand = Number(currentValue);
+        currentValue = "";
+        showCurrenValue();
+        operator = "x";
+    } else if (currentValue != "" && firstOperand != undefined) {
+        eval();
+        operator = "x";
+        firstOperand = result;
+    } else {
+        operator = "x";
+        }
 })
 
 
@@ -180,6 +235,10 @@ buttonPlus.addEventListener("click", () => {
 
 function showCurrenValue() {
     screenValue.textContent = currentValue;
+}
+
+function showCurrenResult() {
+    screenValue.textContent = result;
 }
 
 function clearCurrentValue() {
@@ -196,9 +255,31 @@ function eval() {
     secondOperand = Number(currentValue);
     if (operator == "+") {
         operator = "";
-        currentValue = firstOperand + secondOperand;
+        result = firstOperand + secondOperand;
         firstOperand = undefined;
         secondOperand = undefined;
-        showCurrenValue();
+        currentValue = "";
+        showCurrenResult();
+    } else if (operator == "-") {
+        operator = "";
+        result = firstOperand - secondOperand;
+        firstOperand = undefined;
+        secondOperand = undefined;
+        currentValue = "";
+        showCurrenResult();
+    } else if (operator == "/") {
+        operator = "";
+        result = firstOperand / secondOperand;
+        firstOperand = undefined;
+        secondOperand = undefined;
+        currentValue = "";
+        showCurrenResult();
+    } else if (operator == "x") {
+        operator = "";
+        result = firstOperand * secondOperand;
+        firstOperand = undefined;
+        secondOperand = undefined;
+        currentValue = "";
+        showCurrenResult();
     }
 }
