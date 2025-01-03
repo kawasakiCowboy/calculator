@@ -52,11 +52,7 @@ buttonBackspace.addEventListener("click",() => {
 let calculator = new Calculator();
 
 buttonOne.element.addEventListener("click",(e)=> {
-    calculator.numberPressed(e.target.getAttribute("value"));
-})
-
-buttonPlus.element.addEventListener("click",(e)=> {
-    calculator.plusPressed();
+    calculator.numberPressed(1);
 })
 
 buttonPlus.element.addEventListener("click",(e)=> {
