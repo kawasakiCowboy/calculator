@@ -49,5 +49,20 @@ buttonBackspace.addEventListener("click",() => {
     backspace();
 });
 
-// FUNCTIONS
+let calculator = new Calculator();
 
+buttonOne.element.addEventListener("click",(e)=> {
+    calculator.numberPressed(e.target.getAttribute("value"));
+})
+
+buttonPlus.element.addEventListener("click",(e)=> {
+    calculator.plusPressed();
+})
+
+buttonPlus.element.addEventListener("click",(e)=> {
+    calculator.plusPressed();
+})
+
+buttonEqual.addEventListener("click",(e)=> {
+    calculator.equalPressed();
+})
