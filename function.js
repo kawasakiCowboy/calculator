@@ -34,93 +34,95 @@ const buttonBackspace = document.querySelector("#backspace");
 
 let screenValue = document.querySelector("#screen");
 
-let currentValue = "";
-let firstOperand;
-let secondOperand;
-let operator;
-let result;
-
+const calculator = (function () {
+    let currentValue = "";
+    let firstOperand;
+    let secondOperand;
+    let operator;
+    let result;
+    return { currentValue, firstOperand, secondOperand, operator, result };
+  })();
 
 // FUNCTIONS
 
 
 function ListenerNumber(button) {
     button.element.addEventListener("click", () => {
-        if (currentValue == "0") {
-            currentValue = button.value;
-            showCurrenValue();
+        if (calculator.currentValue == "0") {
+            calculator.currentValue = button.value;
+            showCurrentValue();
         } else {
-        currentValue += button.value;
-        showCurrenValue();
+        calculator.currentValue += button.value;
+        showCurrentValue();
         }  
     })
 }
 
 function ListenerOperator(button) {
     button.element.addEventListener("click", () => {
-        if (!operator) {
-            firstOperand = Number(currentValue);
-            currentValue = "";
-            showCurrenValue();
-            operator = button.value;
-        } else if (currentValue != "" && firstOperand != undefined) {
+        if (!calculator.operator) {
+            calculator.firstOperand = Number(calculator.currentValue);
+            calculator.currentValue = "";
+            showCurrentValue();
+            calculator.operator = button.value;
+        } else if (calculator.currentValue != "" && calculator.firstOperand != undefined) {
             eval();
-            operator = button.value;
-            firstOperand = result;
+            calculator.operator = button.value;
+            calculator.firstOperand = calculator.result;
         } else {
-            operator = button.value;
+            calculator.operator = button.value;
             }
     })
 }
 
-function showCurrenValue() {
-    screenValue.textContent = currentValue;
+function showCurrentValue() {
+    screenValue.textContent = calculator.currentValue;
 }
 
-function showCurrenResult() {
-    screenValue.textContent = result;
+function showCurrentResult() {
+    screenValue.textContent = calculator.result;
 }
 
 function clearCurrentValue() {
-    currentValue = "";
-    showCurrenValue();
+    calculator.currentValue = "";
+    showCurrentValue();
 }
 
 function backspace() {
-    currentValue = currentValue.substring(0, currentValue.length-1);
-    showCurrenValue();
+    calculator.currentValue = calculator.currentValue.substring(0, calculator.currentValue.length-1);
+    showCurrentValue();
 }
 
 function eval() {
-    secondOperand = Number(currentValue);
-    if (operator == "+") {
-        operator = "";
-        result = firstOperand + secondOperand;
-        firstOperand = undefined;
-        secondOperand = undefined;
-        currentValue = "";
-        showCurrenResult();
-    } else if (operator == "-") {
-        operator = "";
-        result = firstOperand - secondOperand;
-        firstOperand = undefined;
-        secondOperand = undefined;
-        currentValue = "";
-        showCurrenResult();
-    } else if (operator == "/") {
-        operator = "";
-        result = firstOperand / secondOperand;
-        firstOperand = undefined;
-        secondOperand = undefined;
-        currentValue = "";
-        showCurrenResult();
-    } else if (operator == "x") {
-        operator = "";
-        result = firstOperand * secondOperand;
-        firstOperand = undefined;
-        secondOperand = undefined;
-        currentValue = "";
-        showCurrenResult();
+    calculator.secondOperand = Number(calculator.currentValue);
+    if (calculator.operator == "+") {
+        calculator.operator = "";
+        calculator.result = calculator.firstOperand + calculator.secondOperand;
+        calculator.firstOperand = undefined;
+        calculator.secondOperand = undefined;
+        calculator.currentValue = "";
+        showCurrentResult();
+    } else if (calculator.operator == "-") {
+        calculator.operator = "";
+        calculator.result = calculator.firstOperand - calculator.secondOperand;
+        calculator.firstOperand = undefined;
+        calculator.secondOperand = undefined;
+        calculator.currentValue = "";
+        showCurrentResult();
+    } else if (calculator.operator == "/") {
+        calculator.operator = "";
+        calculator.result = calculator.firstOperand / calculator.secondOperand;
+        calculator.firstOperand = undefined;
+        calculator.secondOperand = undefined;
+        calculator.currentValue = "";
+        showCurrentResult();
+    } else if (calculator.operator == "x") {
+        calculator.operator = "";
+        calculator.result = calculator.firstOperand * calculator.secondOperand;
+        calculator.firstOperand = undefined;
+        calculator.secondOperand = undefined;
+        calculator.currentValue = "";
+        showCurrentResult();
     }
 }
 

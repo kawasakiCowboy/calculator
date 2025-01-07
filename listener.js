@@ -1,26 +1,48 @@
 // LISTENERS
 
 buttonZero.element.addEventListener("click",() => {
-    if (currentValue.includes(".") || currentValue != buttonZero.value) {
-        currentValue += buttonZero.value;
-        showCurrenValue();
+    if (calculator.currentValue.includes(".") || calculator.currentValue != buttonZero.value) {
+        calculator.currentValue += buttonZero.value;
+        showCurrentValue();
     } else {
-        showCurrenValue();
+        showCurrentValue();
     }
 });
 
 buttonFloat.addEventListener("click",() => {
-    if (currentValue.includes(".")) {
-        showCurrenValue();
-    } else if (currentValue == "") {
-        currentValue += "0.";
-        showCurrenValue();
+    if (calculator.currentValue.includes(".")) {
+        showCurrentValue();
+    } else if (calculator.currentValue == "") {
+        calculator.currentValue += "0.";
+        showCurrentValue();
     } else {
-    currentValue += ".";
-    showCurrenValue();
+    calculator.currentValue += ".";
+    showCurrentValue();
     }
 });
 
+buttonMinus.element.addEventListener("click", () => {
+    if (calculator.currentValue === "") {
+        calculator.currentValue += buttonMinus.value;
+        showCurrentValue();  
+    } else {
+        if (calculator.currentValue === "-") {
+            showCurrentValue();  
+        }
+        else if (!calculator.operator) {
+            calculator.firstOperand = Number(calculator.currentValue);
+            calculator.currentValue = "";
+            showCurrentValue();
+            calculator.operator = buttonMinus.value;
+        } else if (calculator.currentValue != "" && calculator.firstOperand != undefined) {
+            eval();
+            calculator.operator = buttonMinus.value;
+            calculator.firstOperand = calculator.result;
+        } else {
+            calculator.operator = buttonMinus.value;
+            }
+    }
+})
 
 new ListenerNumber(buttonOne);
 new ListenerNumber(buttonTwo);
@@ -31,9 +53,7 @@ new ListenerNumber(buttonSix);
 new ListenerNumber(buttonSeven);
 new ListenerNumber(buttonEight);
 new ListenerNumber(buttonNine);
-
 new ListenerOperator(buttonPlus);
-new ListenerOperator(buttonMinus);
 new ListenerOperator(buttonDivision);
 new ListenerOperator(buttonMultiplication);
 
